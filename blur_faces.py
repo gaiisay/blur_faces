@@ -1,5 +1,12 @@
+import sys
 import cv2
 import face_recognition
+
+inputArgs = sys.argv
+images = []
+
+for path in inputArgs[1:]:
+    images.append(path)
 
 
 def blur_faces(imgPath):
@@ -15,4 +22,10 @@ def blur_faces(imgPath):
         image[top:bottom, left:right] = face_image
 
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    cv2.imwrite(f'{imgPath}_blurred_faces.jpg', image)
+    
+    index = imagePath.index('.')
+    cv2.imwrite(f'{imgPath[:index]}_blurred_faces.jpg', image)
+
+
+for imagePath in images:
+    blur_faces(imagePath)
